@@ -1,0 +1,11 @@
+:root{
+    --main-bg-color:#7B95B4;
+    --secondary-bg-color:#FFCB00;
+    --main-text-color:whitesmoke;
+    --secondary-text-color: slategrey;
+    --third-text-color: white;
+    --third-bg-color: #ADE498;
+    /* --form-bg-color: rgb(220, 163, 0); */
+    --scrolled-navbar:  rgba(128,128,145,0.85);
+    --main-inverse: #FFCB00;
+}
