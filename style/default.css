@@ -225,7 +225,7 @@ img[alt=Python]{
   position: relative;
   display: block;
   max-height: 100vh;
-  min-height: 60vh;
+  min-height: 80vh;
 }
 
 #contact + div img{
@@ -252,10 +252,10 @@ input, #submit{
 
 input, textarea{
   font-size: .97em;
-  transition: all .3s ease-in-out;
+  /* transition: all .3s ease-in-out;
   -webkit-transition: all .3s ease-in-out;
   -moz-transition: all .3s ease-in-out;
-  -ms-transition: all .3s ease-in-out;
+  -ms-transition: all .3s ease-in-out; */
 }
 
 #form {
@@ -284,7 +284,7 @@ textarea {
 }
 
 #submit {
-  transition: 0s;
+  /* transition: 0s; */
   padding: 0;
   margin: -6px 0px 0px 0px;
   font-size: 0.875em;
@@ -324,7 +324,6 @@ footer a:hover{
         line-height: 7vw;
     }
     #contact{
-      padding-top: 130px;
       height: 50vh;
       margin: 100px auto;
     }
