@@ -224,8 +224,10 @@ img[alt=Python]{
   color: var(--secondary-text-color);
   position: relative;
   display: block;
-  max-height: 100vh;
-  min-height: 80vh;
+  max-height: 80%;
+  min-height: 60%;
+  /* max-height: 100vh;
+  min-height: 80vh; */
 }
 
 #contact + div img{
@@ -323,8 +325,13 @@ footer a:hover{
         font-size: 7vw;
         line-height: 7vw;
     }
+    #contact-me{
+      min-height: 40em;
+      display: flex;
+      align-items: center;
+    }
     #contact{
-      height: 50vh;
+      height: 40vh;
       margin: 100px auto;
     }
 }
