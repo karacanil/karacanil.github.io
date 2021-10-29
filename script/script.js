@@ -53,12 +53,12 @@ for(var i=0; themes.length > i; i++){
 
 function setTheme(mode){
     if(mode === "light"){
-        document.getElementById('theme-style').href = "/style/theme.css"
-        document.getElementById('mail').src = "/docs/imgs/web-illustration/web-mail5.png"
+        document.getElementById('theme-style').href = "style/theme.css"
+        document.getElementById('mail').src = "docs/imgs/web-illustration/web-mail5.png"
     }
     if(mode === "dark"){
-        document.getElementById('theme-style').href = "/style/default.css"
-        document.getElementById('mail').src = "/docs/imgs/web-illustration/web-mail6.png"
+        document.getElementById('theme-style').href = "style/default.css"
+        document.getElementById('mail').src = "docs/imgs/web-illustration/web-mail6.png"
     }
     localStorage.setItem('theme', mode)
 }
