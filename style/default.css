@@ -141,6 +141,11 @@ body{
   opacity: 1;
 }
 
+.btn:focus {
+  outline: none;
+  box-shadow: none;
+}
+
 #about{
   content-visibility: auto;
   background-color: var(--main-text-color);
