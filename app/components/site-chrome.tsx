@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { MobileMenu } from "./mobile-menu";
 import { ThemeToggle } from "./theme-toggle";
 
 export function Wordmark() {
@@ -25,6 +26,7 @@ export function SiteHeader() {
       <div className="header-actions">
         <ThemeToggle />
         <Link className="signal-link" href="/about/">ABOUT</Link>
+        <MobileMenu />
       </div>
     </header>
   );
