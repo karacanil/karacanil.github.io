@@ -19,8 +19,8 @@ export const metadata: Metadata = {
   description:
     "Independent writing on software engineering, computer vision, games, embedded systems, and the workbench in between.",
   icons: {
-    icon: "/favicon.svg",
-    shortcut: "/favicon.svg",
+    icon: [{ url: "/favicon-ws.svg", type: "image/svg+xml" }],
+    shortcut: "/favicon-ws.svg",
   },
 };
 
