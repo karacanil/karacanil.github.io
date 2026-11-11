@@ -48,7 +48,7 @@ export default function Home() {
             technology, games, and making things.
           </p>
         </div>
-        <a className="text-link" href="/about">About the site <span>→</span></a>
+        <a className="text-link" href="/about/">About the site <span>→</span></a>
       </section>
 
       <SiteFooter />

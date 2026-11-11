@@ -7,7 +7,7 @@ date: "2026-08-16"
 readingTime: "7 min read"
 accent: "lime"
 featured: "true"
-draft: "false"
+draft: "true"
 order: "1"
 ---
 
