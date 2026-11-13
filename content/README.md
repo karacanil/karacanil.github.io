@@ -32,6 +32,18 @@ The homepage finds the file automatically. No page component or article index ne
 
 ## Supported Markdown
 
-Headings, paragraphs, bold, emphasis, inline code, links, images, blockquotes,
-bulleted and numbered lists, fenced code blocks, tables, and horizontal rules
-all inherit the site's article styling.
+Articles use GitHub-flavoured Markdown: headings, paragraphs, bold, emphasis,
+strikethrough, inline code, links, images, blockquotes, bulleted and numbered
+lists (including nested lists and task lists), fenced code blocks with syntax
+highlighting, tables, footnotes, and horizontal rules.
+
+Math is supported with `$inline$` and `$$` display blocks. Write `\$` for a
+literal dollar sign.
+
+Raw HTML is not rendered. Only `##` and `###` headings appear in the article's
+"On this page" list.
+
+## Feed and sitemap
+
+`/feed.xml` (RSS), `/sitemap.xml`, and `/robots.txt` are generated from the
+published articles at build time. Nothing needs to be edited by hand.

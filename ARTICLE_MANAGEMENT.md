@@ -119,17 +119,23 @@ articles as featured; the large card treatment is intended to be selective.
 
 ## 3. Write with the supported Markdown
 
-The article renderer supports:
+The article renderer supports GitHub-flavoured Markdown plus math:
 
 - Paragraphs
-- Level-two and level-three headings (`##` and `###`)
-- **Bold text**, *emphasis*, and `inline code`
-- Links and images
-- Bulleted and numbered lists
+- Headings (`##` and `###` for sections, `####` for minor headings)
+- **Bold text**, *emphasis*, ~~strikethrough~~, and `inline code`
+- Links, automatic links for bare URLs, and images
+- Bulleted and numbered lists, including nested lists
+- Task lists (`- [x] done`, `- [ ] open`)
 - Blockquotes
-- Fenced code blocks with an optional language label
-- Tables
+- Fenced code blocks with syntax highlighting for the named language
+- Tables, including column alignment
+- Footnotes (`text[^1]` and `[^1]: The note.`)
+- Math: `$inline$` and `$$` display blocks, rendered with KaTeX
 - Horizontal rules
+
+Everything is converted to plain HTML when the site is built, so none of this
+adds scripts to the published pages.
 
 Example:
 
@@ -159,9 +165,14 @@ Use `##` for main sections and `###` for subsections. These headings are also
 used to generate the article's table of contents. Do not put another `#` title
 in the body; the page already renders the title from frontmatter.
 
-The current renderer does not support every extended Markdown feature. Avoid
-raw HTML, nested lists, task lists, footnotes, heading levels below `###`, and
-complex Markdown embedded inside table cells.
+Things to keep in mind:
+
+- Raw HTML inside an article is not rendered; it appears as text.
+- A dollar sign starts inline math. Write `\$` for a literal dollar sign, for
+  example `\$5`.
+- Name the language after the opening code fence (` ```cpp `, ` ```python `) to
+  get syntax highlighting. An unknown or missing language is shown as plain text.
+- Only `##` and `###` headings appear in the "On this page" list.
 
 ### Add images
 
@@ -469,7 +480,7 @@ Check <https://www.githubstatus.com/> if it happens repeatedly.
 - [ ] Topics use consistent names.
 - [ ] `order`, `accent`, and `featured` are intentional.
 - [ ] Article has a strong opening paragraph.
-- [ ] Only `##` and `###` are used for body headings.
+- [ ] `##` and `###` are used for the sections that should appear in "On this page".
 - [ ] Links and images work.
 - [ ] Images have descriptive alt text.
 - [ ] Desktop and mobile previews look correct.

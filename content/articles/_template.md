@@ -19,11 +19,20 @@ Normal paragraphs, **bold text**, *emphasis*, `inline code`, and [links](https:/
 
 - Lists look good automatically.
 - So do additional list items.
+  - Nested items work too.
+
+Inline math such as $a^2 + b^2 = c^2$ and display math are supported:
+
+$$
+\hat{y} = \sigma(Wx + b)
+$$
+
+A footnote reference looks like this.[^note]
 
 > Blockquotes become highlighted notes.
 
 ```cpp
-// Fenced code blocks include a language label.
+// Name the language to get syntax highlighting.
 int main() {
   return 0;
 }
@@ -35,3 +44,5 @@ int main() {
 | Simple | Responsive |
 
 When the article is ready, change `draft` to `"false"`.
+
+[^note]: Footnotes are collected at the end of the article.
