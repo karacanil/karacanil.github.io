@@ -96,6 +96,18 @@ function parseTopics(value: string | undefined, fallback: string): string[] {
     });
 }
 
+/** Used when an article has no `readingTime` in its frontmatter. */
+function estimateReadingTime(markdown: string): string {
+  const WORDS_PER_MINUTE = 220;
+  const words = markdown
+    .replace(/^(```|~~~)[\s\S]*?^\1.*$/gm, " ") // fenced code is skimmed, not read
+    .replace(/!?\[([^\]]*)\]\([^)]*\)/g, "$1") // keep link text, drop URLs
+    .split(/\s+/)
+    .filter((word) => /[\p{L}\p{N}]/u.test(word)).length;
+
+  return `${Math.max(1, Math.round(words / WORDS_PER_MINUTE))} min read`;
+}
+
 function articleFromFile(path: string, raw: string): Article {
   const { data, content } = parseFrontmatter(raw);
   const slug = path.split("/").pop()?.replace(/\.md$/, "") ?? "";
@@ -115,7 +127,7 @@ function articleFromFile(path: string, raw: string): Article {
     topics: parseTopics(data.topics, data.category),
     date: data.date,
     displayDate: formatDate(data.date),
-    readingTime: data.readingTime || "5 min read",
+    readingTime: data.readingTime || estimateReadingTime(content),
     accent,
     featured: toBoolean(data.featured),
     draft: toBoolean(data.draft),
