@@ -179,21 +179,36 @@ export function getHeadings(markdown: string): Array<{
   text: string;
   id: string;
 }> {
-  return markdown
-    .split("\n")
-    .map((line) => {
-      const match = line.match(/^(##|###)\s+(.+)$/);
-      if (!match) return null;
+  const headings: Array<{ level: number; text: string; id: string }> = [];
+  let fence: string | null = null;
 
-      return {
-        level: match[1].length,
-        text: match[2].replace(/[*_`]/g, ""),
-        id: slugifyHeading(match[2]),
-      };
-    })
-    .filter((heading): heading is { level: number; text: string; id: string } =>
-      Boolean(heading),
-    );
+  for (const line of markdown.split("\n")) {
+    const fenceMatch = line.match(/^\s*(```+|~~~+)/);
+    if (fenceMatch) {
+      const marker = fenceMatch[1][0];
+      if (!fence) fence = marker;
+      else if (fence === marker) fence = null;
+      continue;
+    }
+    if (fence) continue;
+
+    const match = line.match(/^(##|###)\s+(.+?)\s*#*\s*$/);
+    if (!match) continue;
+
+    // Reduce Markdown syntax to the text a reader sees, so the id matches the
+    // one the renderer derives from the rendered heading.
+    const text = match[2]
+      .replace(/!?\[([^\]]*)\]\([^)]*\)/g, "$1")
+      .replace(/[*`~]|\b_|_\b/g, "");
+
+    headings.push({
+      level: match[1].length,
+      text,
+      id: slugifyHeading(text),
+    });
+  }
+
+  return headings;
 }
 
 export function slugifyHeading(value: string): string {
