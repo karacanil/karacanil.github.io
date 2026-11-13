@@ -29,6 +29,7 @@ export type ArticleSummary = Pick<
   | "readingTime"
   | "accent"
   | "featured"
+  | "draft"
 >;
 
 type Frontmatter = Record<string, string>;
@@ -123,8 +124,15 @@ function articleFromFile(path: string, raw: string): Article {
   };
 }
 
+/**
+ * `npm run dev` shows drafts so an article can be previewed before publishing.
+ * Production builds (and therefore the deployed site) never include them.
+ */
+const isDevelopment = process.env.NODE_ENV === "development";
+
 export function getAllArticles(): Article[] {
-  if (articleCache) return articleCache;
+  // Re-read the files on every request in development so edits show up on reload.
+  if (articleCache && !isDevelopment) return articleCache;
 
   articleCache = fs
     .readdirSync(articlesDirectory)
@@ -140,16 +148,17 @@ export function getAllArticles(): Article[] {
   return articleCache;
 }
 
-export function getArticle(slug: string): Article | undefined {
-  return getAllArticles().find((article) => article.slug === slug);
-}
-
 export function getPublishedArticles(): Article[] {
   return getAllArticles().filter((article) => !article.draft);
 }
 
-export function getPublishedArticleSummaries(): ArticleSummary[] {
-  return getPublishedArticles().map(
+/** Articles that get a page: published ones, plus drafts in development. */
+export function getVisibleArticles(): Article[] {
+  return isDevelopment ? getAllArticles() : getPublishedArticles();
+}
+
+export function getVisibleArticleSummaries(): ArticleSummary[] {
+  return getVisibleArticles().map(
     ({
       slug,
       title,
@@ -160,6 +169,7 @@ export function getPublishedArticleSummaries(): ArticleSummary[] {
       readingTime,
       accent,
       featured,
+      draft,
     }) => ({
       slug,
       title,
@@ -170,6 +180,7 @@ export function getPublishedArticleSummaries(): ArticleSummary[] {
       readingTime,
       accent,
       featured,
+      draft,
     }),
   );
 }

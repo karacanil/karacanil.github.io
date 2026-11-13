@@ -199,12 +199,16 @@ Leave `draft: "true"` while writing. Start the development server:
 npm run dev
 ```
 
-Open <http://localhost:3000> in a browser. The homepage intentionally hides
-drafts. To preview a draft directly during local development, open:
+Open <http://localhost:3000> in a browser. While the development server is
+running, drafts are shown on the homepage and at their own URL, marked with a
+`DRAFT` label, and edits to the Markdown file appear when you reload the page:
 
 ```text
 http://localhost:3000/writing/my-new-article/
 ```
+
+Drafts are never included in the published site: the production build leaves
+them out of the pages, the RSS feed, and the sitemap.
 
 Stop the development server with `Ctrl+C`.
 

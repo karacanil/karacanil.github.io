@@ -1,9 +1,9 @@
 import { SiteFooter, SiteHeader } from "./components/site-chrome";
 import { ArticleBrowser } from "./components/article-browser";
-import { getPublishedArticleSummaries } from "./lib/articles";
+import { getVisibleArticleSummaries } from "./lib/articles";
 
 export default function Home() {
-  const articles = getPublishedArticleSummaries();
+  const articles = getVisibleArticleSummaries();
 
   return (
     <main>

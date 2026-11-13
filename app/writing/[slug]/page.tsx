@@ -5,9 +5,8 @@ import { notFound } from "next/navigation";
 import { Markdown } from "../../components/markdown";
 import { SiteFooter, SiteHeader } from "../../components/site-chrome";
 import {
-  getArticle,
   getHeadings,
-  getPublishedArticles,
+  getVisibleArticles,
 } from "../../lib/articles";
 import { OG_IMAGE, SITE_AUTHOR, SITE_NAME } from "../../lib/site";
 
@@ -22,15 +21,20 @@ export const dynamicParams = false;
 const EMPTY_PLACEHOLDER_SLUG = "_";
 
 export function generateStaticParams() {
-  const params = getPublishedArticles().map((article) => ({ slug: article.slug }));
+  const params = getVisibleArticles().map((article) => ({ slug: article.slug }));
   return params.length > 0 ? params : [{ slug: EMPTY_PLACEHOLDER_SLUG }];
+}
+
+/** Published articles, plus drafts while running `npm run dev`. */
+function findVisibleArticle(slug: string) {
+  return getVisibleArticles().find((article) => article.slug === slug);
 }
 
 export async function generateMetadata({ params }: ArticlePageProps): Promise<Metadata> {
   const { slug } = await params;
-  const article = getArticle(slug);
+  const article = findVisibleArticle(slug);
 
-  if (!article || article.draft) {
+  if (!article) {
     return { title: "Article not found — The Working Set" };
   }
 
@@ -58,9 +62,9 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
 
 export default async function ArticlePage({ params }: ArticlePageProps) {
   const { slug } = await params;
-  const article = getArticle(slug);
+  const article = findVisibleArticle(slug);
 
-  if (!article || article.draft) {
+  if (!article) {
     notFound();
   }
 
@@ -73,7 +77,10 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
       <article>
         <section className="article-hero shell">
           <div className="article-hero-meta">
-            <span>ARTICLE</span>
+            <span>
+              ARTICLE
+              {article.draft && <b className="draft-flag">DRAFT</b>}
+            </span>
             <span>{article.category}</span>
             <span>{article.readingTime}</span>
           </div>

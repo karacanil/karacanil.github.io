@@ -322,6 +322,15 @@ img { max-width: 100%; }
   text-transform: uppercase;
 }
 
+.draft-flag {
+  margin-left: 10px;
+  padding: 3px 6px;
+  background: var(--orange);
+  color: var(--signal-ink);
+  font: 800 9px/1 ui-monospace, monospace;
+  letter-spacing: .1em;
+}
+
 .article-grid { display: grid; grid-template-columns: 1.08fr .92fr; gap: 18px; }
 .article-grid.filtered { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
 .article-grid.filtered .article-card,
