@@ -1,6 +1,24 @@
+import type { Metadata } from "next";
 import { SiteFooter, SiteHeader } from "./components/site-chrome";
 import { ArticleBrowser } from "./components/article-browser";
 import { getVisibleArticleSummaries } from "./lib/articles";
+import { OG_IMAGE, SITE_DESCRIPTION, SITE_NAME } from "./lib/site";
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: "/",
+    types: { "application/rss+xml": [{ url: "/feed.xml", title: SITE_NAME }] },
+  },
+  openGraph: {
+    type: "website",
+    siteName: SITE_NAME,
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
+    url: "/",
+    locale: "en_US",
+    images: [OG_IMAGE],
+  },
+};
 
 export default function Home() {
   const articles = getVisibleArticleSummaries();
