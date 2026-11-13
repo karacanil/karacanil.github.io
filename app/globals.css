@@ -458,6 +458,17 @@ img { max-width: 100%; }
   font: 600 10px/1.5 ui-monospace, monospace;
 }
 
+.empty-state {
+  margin: 0;
+  padding: 34px 24px;
+  border: 1px dashed var(--line);
+  color: var(--muted);
+  font: 650 11px/1.5 ui-monospace, monospace;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.topics .empty-state { border-color: var(--inverse-line); color: var(--inverse-muted); }
+.filter-summary[hidden] { display: none; }
 .filter-summary {
   min-height: 44px;
   margin: -16px 0 26px;

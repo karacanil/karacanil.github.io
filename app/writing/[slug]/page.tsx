@@ -15,8 +15,13 @@ type ArticlePageProps = {
 
 export const dynamicParams = false;
 
+// Static export fails the build when a dynamic route has no params at all, so
+// with zero published articles we emit one placeholder that renders the 404.
+const EMPTY_PLACEHOLDER_SLUG = "_";
+
 export function generateStaticParams() {
-  return getPublishedArticles().map((article) => ({ slug: article.slug }));
+  const params = getPublishedArticles().map((article) => ({ slug: article.slug }));
+  return params.length > 0 ? params : [{ slug: EMPTY_PLACEHOLDER_SLUG }];
 }
 
 export async function generateMetadata({ params }: ArticlePageProps): Promise<Metadata> {

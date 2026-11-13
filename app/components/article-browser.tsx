@@ -95,7 +95,11 @@ export function ArticleBrowser({ articles }: { articles: ArticleSummary[] }) {
           <p>Technical explanations, field notes, and ideas developed through ongoing projects.</p>
         </div>
 
-        <div className="filter-summary" aria-live="polite">
+        {articles.length === 0 && (
+          <p className="empty-state">No articles published yet. The first one is on its way.</p>
+        )}
+
+        <div className="filter-summary" aria-live="polite" hidden={articles.length === 0}>
           <span>
             {activeTopic ? (
               <>Showing {visibleArticles.length} of {filteredArticles.length} articles tagged <strong>#{activeTopic}</strong></>
@@ -165,9 +169,11 @@ export function ArticleBrowser({ articles }: { articles: ArticleSummary[] }) {
             <span>{hiddenArticleCount} remaining</span>
           </div>
         )}
-        <p className="markdown-note">
-          Every article is written in Markdown and automatically inherits the same layout.
-        </p>
+        {articles.length > 0 && (
+          <p className="markdown-note">
+            Every article is written in Markdown and automatically inherits the same layout.
+          </p>
+        )}
       </section>
 
       <section className="topics section" id="topics">
@@ -179,6 +185,9 @@ export function ArticleBrowser({ articles }: { articles: ArticleSummary[] }) {
             </div>
             <p>Choose a tag to filter the article list. Add or remove topics in each article’s Markdown file.</p>
           </div>
+          {topics.length === 0 && (
+            <p className="empty-state">Topics appear here once articles are published.</p>
+          )}
           <div className="topic-filter-grid" aria-label="Filter articles by topic">
             {topics.map((topic) => {
               const selected = activeTopic === topic.label;
