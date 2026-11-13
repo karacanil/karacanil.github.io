@@ -9,6 +9,7 @@ import {
   getHeadings,
   getPublishedArticles,
 } from "../../lib/articles";
+import { OG_IMAGE, SITE_AUTHOR, SITE_NAME } from "../../lib/site";
 
 type ArticlePageProps = {
   params: Promise<{ slug: string }>;
@@ -36,7 +37,22 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
   return {
     title: `${article.title} — The Working Set`,
     description: article.description,
-    alternates: { canonical: `/writing/${article.slug}/` },
+    alternates: {
+      canonical: `/writing/${article.slug}/`,
+      types: { "application/rss+xml": [{ url: "/feed.xml", title: SITE_NAME }] },
+    },
+    openGraph: {
+      type: "article",
+      siteName: SITE_NAME,
+      title: article.title,
+      description: article.description,
+      url: `/writing/${article.slug}/`,
+      locale: "en_US",
+      publishedTime: `${article.date}T00:00:00Z`,
+      authors: [SITE_AUTHOR],
+      tags: article.topics,
+      images: [OG_IMAGE],
+    },
   };
 }
 

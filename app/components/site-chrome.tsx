@@ -40,7 +40,10 @@ export function SiteFooter() {
         <p>Notes on software, vision, and games.</p>
       </div>
       <span>SOFTWARE · VISION · GAMES</span>
-      <span>© {new Date().getFullYear()} THE WORKING SET</span>
+      <span>
+        <a className="footer-feed" href="/feed.xml">RSS FEED</a>
+        <br />© {new Date().getFullYear()} THE WORKING SET
+      </span>
     </footer>
   );
 }

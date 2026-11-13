@@ -1,9 +1,23 @@
 import type { Metadata } from "next";
 import { SiteFooter, SiteHeader } from "../components/site-chrome";
+import { OG_IMAGE, SITE_NAME } from "../lib/site";
 
 export const metadata: Metadata = {
   title: "About — The Working Set",
   description: "About The Working Set and its author.",
+  alternates: {
+    canonical: "/about/",
+    types: { "application/rss+xml": [{ url: "/feed.xml", title: SITE_NAME }] },
+  },
+  openGraph: {
+    type: "website",
+    siteName: SITE_NAME,
+    title: "About — The Working Set",
+    description: "About The Working Set and its author.",
+    url: "/about/",
+    locale: "en_US",
+    images: [OG_IMAGE],
+  },
 };
 
 function Arrow() {

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { OG_IMAGE, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "./lib/site";
 
 const themeScript = `
   (function () {
@@ -14,10 +15,23 @@ const themeScript = `
 `;
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://karacanil.github.io"),
-  title: "The Working Set",
-  description:
-    "Independent writing on software engineering, computer vision, games, embedded systems, and the workbench in between.",
+  metadataBase: new URL(SITE_URL),
+  title: SITE_NAME,
+  description: SITE_DESCRIPTION,
+  alternates: {
+    canonical: "/",
+    types: { "application/rss+xml": [{ url: "/feed.xml", title: SITE_NAME }] },
+  },
+  openGraph: {
+    type: "website",
+    siteName: SITE_NAME,
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
+    url: "/",
+    locale: "en_US",
+    images: [OG_IMAGE],
+  },
+  twitter: { card: "summary_large_image" },
   icons: {
     icon: [{ url: "/favicon-ws.svg", type: "image/svg+xml" }],
     shortcut: "/favicon-ws.svg",

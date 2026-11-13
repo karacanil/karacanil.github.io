@@ -664,6 +664,9 @@ img { max-width: 100%; }
 .footer > :last-child { text-align: right; }
 .footer-mark { font-size: 20px; font-weight: 900; }
 .footer p { margin: 4px 0 0; color: var(--muted); letter-spacing: 0; }
+.footer-feed { display: inline-block; margin-bottom: 6px; border-bottom: 1px solid var(--ink); }
+.footer-feed:hover,
+.footer-feed:focus-visible { color: var(--accent-text); border-color: var(--accent-text); }
 
 .article-page { min-height: 100vh; }
 .article-hero { padding: 66px 0 70px; border-bottom: 1px solid var(--line); }
