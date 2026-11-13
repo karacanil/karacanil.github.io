@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import "@fontsource-variable/inter";
 import "./globals.css";
 import { OG_IMAGE, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "./lib/site";
 
