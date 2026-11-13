@@ -29,6 +29,7 @@ export type ArticleSummary = Pick<
   | "readingTime"
   | "accent"
   | "featured"
+  | "draft"
 >;
 
 type Frontmatter = Record<string, string>;
@@ -95,6 +96,18 @@ function parseTopics(value: string | undefined, fallback: string): string[] {
     });
 }
 
+/** Used when an article has no `readingTime` in its frontmatter. */
+function estimateReadingTime(markdown: string): string {
+  const WORDS_PER_MINUTE = 220;
+  const words = markdown
+    .replace(/^(```|~~~)[\s\S]*?^\1.*$/gm, " ") // fenced code is skimmed, not read
+    .replace(/!?\[([^\]]*)\]\([^)]*\)/g, "$1") // keep link text, drop URLs
+    .split(/\s+/)
+    .filter((word) => /[\p{L}\p{N}]/u.test(word)).length;
+
+  return `${Math.max(1, Math.round(words / WORDS_PER_MINUTE))} min read`;
+}
+
 function articleFromFile(path: string, raw: string): Article {
   const { data, content } = parseFrontmatter(raw);
   const slug = path.split("/").pop()?.replace(/\.md$/, "") ?? "";
@@ -114,7 +127,7 @@ function articleFromFile(path: string, raw: string): Article {
     topics: parseTopics(data.topics, data.category),
     date: data.date,
     displayDate: formatDate(data.date),
-    readingTime: data.readingTime || "5 min read",
+    readingTime: data.readingTime || estimateReadingTime(content),
     accent,
     featured: toBoolean(data.featured),
     draft: toBoolean(data.draft),
@@ -123,8 +136,15 @@ function articleFromFile(path: string, raw: string): Article {
   };
 }
 
+/**
+ * `npm run dev` shows drafts so an article can be previewed before publishing.
+ * Production builds (and therefore the deployed site) never include them.
+ */
+const isDevelopment = process.env.NODE_ENV === "development";
+
 export function getAllArticles(): Article[] {
-  if (articleCache) return articleCache;
+  // Re-read the files on every request in development so edits show up on reload.
+  if (articleCache && !isDevelopment) return articleCache;
 
   articleCache = fs
     .readdirSync(articlesDirectory)
@@ -140,16 +160,17 @@ export function getAllArticles(): Article[] {
   return articleCache;
 }
 
-export function getArticle(slug: string): Article | undefined {
-  return getAllArticles().find((article) => article.slug === slug);
-}
-
 export function getPublishedArticles(): Article[] {
   return getAllArticles().filter((article) => !article.draft);
 }
 
-export function getPublishedArticleSummaries(): ArticleSummary[] {
-  return getPublishedArticles().map(
+/** Articles that get a page: published ones, plus drafts in development. */
+export function getVisibleArticles(): Article[] {
+  return isDevelopment ? getAllArticles() : getPublishedArticles();
+}
+
+export function getVisibleArticleSummaries(): ArticleSummary[] {
+  return getVisibleArticles().map(
     ({
       slug,
       title,
@@ -160,6 +181,7 @@ export function getPublishedArticleSummaries(): ArticleSummary[] {
       readingTime,
       accent,
       featured,
+      draft,
     }) => ({
       slug,
       title,
@@ -170,6 +192,7 @@ export function getPublishedArticleSummaries(): ArticleSummary[] {
       readingTime,
       accent,
       featured,
+      draft,
     }),
   );
 }

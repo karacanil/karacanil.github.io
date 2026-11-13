@@ -130,7 +130,10 @@ export function ArticleBrowser({ articles }: { articles: ArticleSummary[] }) {
                 <div className="signal-graphic"><i /><i /><i /></div>
               </div>
               <div className="article-copy">
-                <span className="article-kind">{article.category}</span>
+                <span className="article-kind">
+                  {article.category}
+                  {article.draft && <b className="draft-flag">DRAFT</b>}
+                </span>
                 <h3>{article.title}</h3>
                 <p>{article.description}</p>
                 <div className="article-topics" aria-label={`Topics for ${article.title}`}>

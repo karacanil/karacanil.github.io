@@ -4,7 +4,6 @@ description: "A one-sentence summary shown on the homepage and in search results
 category: "Software engineering"
 topics: "architecture, performance, linux"
 date: "2026-08-16"
-readingTime: "5 min read"
 accent: "lime"
 featured: "false"
 draft: "true"

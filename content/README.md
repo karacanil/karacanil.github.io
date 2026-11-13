@@ -24,7 +24,7 @@ The homepage finds the file automatically. No page component or article index ne
 - `category`: topic label
 - `topics`: comma-separated filter tags, such as `"linux, performance, architecture"`
 - `date`: publication date in YYYY-MM-DD
-- `readingTime`: short label such as `"7 min read"`
+- `readingTime`: optional; calculated from the article length when left out. Set it (for example `"7 min read"`) to override the estimate
 - `accent`: `"lime"`, `"orange"`, or `"blue"`
 - `featured`: use `"true"` for the large homepage card
 - `draft`: drafts stay hidden from the public site until changed to `"false"`

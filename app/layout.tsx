@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import "@fontsource-variable/inter";
 import "./globals.css";
 import { OG_IMAGE, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "./lib/site";
 
@@ -18,8 +19,8 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: SITE_NAME,
   description: SITE_DESCRIPTION,
+  // No canonical here: pages without their own (such as the 404) would inherit it.
   alternates: {
-    canonical: "/",
     types: { "application/rss+xml": [{ url: "/feed.xml", title: SITE_NAME }] },
   },
   openGraph: {
@@ -27,7 +28,6 @@ export const metadata: Metadata = {
     siteName: SITE_NAME,
     title: SITE_NAME,
     description: SITE_DESCRIPTION,
-    url: "/",
     locale: "en_US",
     images: [OG_IMAGE],
   },

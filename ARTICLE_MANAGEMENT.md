@@ -77,7 +77,6 @@ description: "A one-sentence summary shown on the homepage and in search results
 category: "Software engineering"
 topics: "architecture, performance, linux"
 date: "2026-08-17"
-readingTime: "5 min read"
 accent: "lime"
 featured: "false"
 draft: "true"
@@ -103,7 +102,7 @@ reader is intentionally simple; each field should remain on one line.
 | `category` | Yes | Primary category displayed on the article card |
 | `topics` | Recommended | Comma-separated topic filters; falls back to `category` when omitted |
 | `date` | Yes | Publication date in `YYYY-MM-DD` format |
-| `readingTime` | No | Display label; defaults to `5 min read` |
+| `readingTime` | No | Display label such as `"7 min read"`; calculated from the article length when left out |
 | `accent` | No | Card color: `lime`, `orange`, or `blue`; defaults to `lime` |
 | `featured` | No | `"true"` gives the article the large homepage card |
 | `draft` | No | Only the exact value `"true"` hides the article; use it while writing |
@@ -199,12 +198,16 @@ Leave `draft: "true"` while writing. Start the development server:
 npm run dev
 ```
 
-Open <http://localhost:3000> in a browser. The homepage intentionally hides
-drafts. To preview a draft directly during local development, open:
+Open <http://localhost:3000> in a browser. While the development server is
+running, drafts are shown on the homepage and at their own URL, marked with a
+`DRAFT` label, and edits to the Markdown file appear when you reload the page:
 
 ```text
 http://localhost:3000/writing/my-new-article/
 ```
+
+Drafts are never included in the published site: the production build leaves
+them out of the pages, the RSS feed, and the sitemap.
 
 Stop the development server with `Ctrl+C`.
 
@@ -476,7 +479,7 @@ Check <https://www.githubstatus.com/> if it happens repeatedly.
 
 - [ ] Filename is a clean, permanent URL slug.
 - [ ] Required frontmatter is complete.
-- [ ] Date and reading-time label are correct.
+- [ ] Date is correct.
 - [ ] Topics use consistent names.
 - [ ] `order`, `accent`, and `featured` are intentional.
 - [ ] Article has a strong opening paragraph.
