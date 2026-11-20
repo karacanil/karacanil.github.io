@@ -155,7 +155,13 @@ export function getAllArticles(): Article[] {
         fs.readFileSync(path.join(articlesDirectory, filename), "utf8"),
       ),
     )
-    .sort((a, b) => a.order - b.order || b.date.localeCompare(a.date));
+    .sort(
+      (a, b) =>
+        a.order - b.order ||
+        b.date.localeCompare(a.date) ||
+        // Same order and date: the featured article leads.
+        Number(b.featured) - Number(a.featured),
+    );
 
   return articleCache;
 }
